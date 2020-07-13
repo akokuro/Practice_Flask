@@ -1,5 +1,5 @@
-# подключение модуля socket для получения ip-адреса машины, на которой интерпретатор Python в настоящее время выполняется
-import socket
+# подключение класса request из модуля flask
+from flask import request
 # подключение класса Flask из модуля flask
 from flask import Flask
 
@@ -12,9 +12,8 @@ app = Flask(__name__)
 @app.route('/see', methods=['POST'])
 def see():
     # в ответ на POST-запрос возвращает строку
-    # функция gethostbyname переводит имя хоста в формат адреса IPv4, возвращает строку
-    # gethostname() возвращает строку, содержащую имя хоста машины, на которой интерпретатор Python в настоящее время выполняется
-    return "Hello World " + socket.gethostbyname(socket.gethostname())
+    # remote_addr - поле класса request, в котором хранится ip-адрес отправителя запроса
+    return "Hello World " + request.remote_addr
 
 # вызывызавется метода run объекта app: запуск приложения в режиме debug
 app.run(debug = True)
